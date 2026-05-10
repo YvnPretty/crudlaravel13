@@ -33,5 +33,14 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-script
 # Instalar dependencias de Node.js y compilar Vite
 RUN npm install && npm run build
 
-# Iniciar el servidor de Laravel
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
+# Configurar permisos de storage
+RUN chmod -R 775 storage bootstrap/cache
+
+# Iniciar el servidor: configurar .env, SQLite, migrar y arrancar
+CMD cp .env.example .env && \
+    sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/' .env && \
+    sed -i '/DB_HOST/d;/DB_PORT/d;/DB_DATABASE/d;/DB_USERNAME/d;/DB_PASSWORD/d' .env && \
+    touch database/database.sqlite && \
+    php artisan key:generate && \
+    php artisan migrate --force && \
+    php artisan serve --host=0.0.0.0 --port=$PORT
