@@ -23,8 +23,12 @@ WORKDIR /app
 # Copiar todos los archivos del proyecto al contenedor
 COPY . .
 
+# Variables de entorno para Composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_MEMORY_LIMIT=-1
+
 # Instalar dependencias de PHP
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Instalar dependencias de Node.js y compilar Vite
 RUN npm install && npm run build
