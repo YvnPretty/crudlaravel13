@@ -17,7 +17,7 @@
         "LOG_CHANNEL": "stderr",
         "DB_CONNECTION": "sqlite",
         "DB_DATABASE": "/tmp/database.sqlite",
-        "SESSION_DRIVER": "file",
-        "CACHE_STORE": "file"
+        "SESSION_DRIVER": "cookie",
+        "CACHE_STORE": "array"
     }
 }
