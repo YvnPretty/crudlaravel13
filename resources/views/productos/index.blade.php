@@ -30,7 +30,6 @@
                 <td>${{ number_format($producto->precio, 2) }}</td>
                 <td>{{ $producto->stock }}</td>
                 <td>
-                    <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-info btn-sm text-white">Ver</a>
                     <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
                     <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display:inline-block;">
                         @csrf
